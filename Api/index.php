@@ -1,8 +1,10 @@
 <?php
     require_once('../autoloader.php');
     
-    use Helper\Admin as Admin;
+    use Helper\Jwt_client as jwt;
+    use Helper\Database as DB;
 
-    echo(Admin::say_hello());
+    DB::db_connect();
+   
    
 ?>

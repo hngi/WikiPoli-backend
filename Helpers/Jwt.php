@@ -3,16 +3,40 @@
 
 /* 
 
-    This is the database Class 
+    This is the Jwt Class 
 */
 
-    namespace Jwt;
+    namespace Helper;
+    use Firebase\JWT\JWT as jwt;
+    use Helper\Config as Config;
 
-    class Jwt{
+    class Jwt_client{
 
-        public static function say_hello(){
+        public static function encode(Array $array){
 
-            return "hello";
+            if(is_array($array)){
+
+                $key=Config::get_config('Jwt_secret');
+                $jwt=jwt::encode($array,$key);
+                return $jwt;
+
+
+            }
+            
+            
         }
+
+        public static function decode($token){
+
+            if(!empty($token) && isset($token)){
+
+                $key=Config::get_config('Jwt_secret');
+                $jwt=jwt::decode($token,$key,['HS256']);
+                return (array) $jwt;
+
+            }
+            
+        }
+
     }
 ?>

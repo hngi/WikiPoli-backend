@@ -23,7 +23,10 @@
 
 
     	}
-        
+        public function publish()
+        {
+            # code...
+        }
     }
    
 ?>

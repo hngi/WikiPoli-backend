@@ -1,9 +1,12 @@
 <?php
     require_once('../autoloader.php');
     
-    use Helper\Admin as Admin;
+    use Helper\Jwt_client as jwt;
+    use Helper\Database as DB;
 
-
+    DB::db_connect();
+   
+   
 $url_array = explode("/", $_SERVER['REQUEST_URI']);
 //I'm getting the link details here and I split with "/"
 
@@ -35,5 +38,4 @@ else {
 }
 
 
-   
 ?>

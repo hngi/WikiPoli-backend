@@ -18,3 +18,8 @@ EXTERNAL LIBRARY
 
     ::::Authentication:::::
         We will be using JWT for authentication,The firebase/php-jwt will be used for jwt
+
+
+
+For the database connection,An example on how to connect to the database is in index.php
+The db_connect function returns the connection resource.To input your database configuration,go to Helpers/Config.php and edit the protected array

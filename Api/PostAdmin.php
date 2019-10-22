@@ -27,6 +27,13 @@
         {
             # code...
         }
+
+        
+        public function unpublish($id)
+        {
+                    # code...
+        }
+
     }
    
 ?>

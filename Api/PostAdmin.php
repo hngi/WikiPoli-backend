@@ -34,6 +34,11 @@
                     # code...
         }
 
+        public function edit($id)
+        {
+            # code...
+        }
+
     }
    
 ?>

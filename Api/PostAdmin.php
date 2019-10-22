@@ -9,7 +9,7 @@
      * 
      */
     class PostAdmin {
-    	$db;
+    	public $db;
     	
     	function __construct()
     	{
@@ -56,4 +56,3 @@
 
     }
    
-?>

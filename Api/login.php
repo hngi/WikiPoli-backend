@@ -2,7 +2,7 @@
 
 
 require_once('../autoloader.php');
-    
+     
 use Helper\Database as DB;
 use Helper\Jwt_client as jwt;
 
@@ -42,7 +42,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $token=jwt::encode($arr);
             $data=[
                 'res'=>'Login Successful',
-                'status'=>404,
+                'status'=>200,
                 'token'=>$token
             ];
     

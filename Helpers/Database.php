@@ -83,7 +83,7 @@
                 $param="0123456789".time();
                 $letters = str_split($param);
                 $str = "";
-                for ($i=0; $i<=10; $i++) {
+                for ($i=0; $i<=8; $i++) {
                     $str .= $letters[rand(0, count($letters)-1)];
                 };
                 
@@ -131,6 +131,28 @@
            }
         }
 
+        public static function addAdmin($conn,$email,$password,$name){
+
+            $param="0123456789".time();
+            $letters = str_split($param);
+            $str = "";
+            for ($i=0; $i<=8; $i++) {
+                $str .= $letters[rand(0, count($letters)-1)];
+            };
+                
+
+            $sql = "INSERT INTO users (user_id,name,email,password,admin,super_admin) VALUES ('$str', '$name', '$email','$password',1,0)";
+            $result = mysqli_query($conn, $sql);
+
+            if($result){
+
+                return true;
+
+            }else{
+                return false;
+            }
+        }
+
         public static function getAllUsers(){
             if(isset($_GET['name'])){
                 $name = $_GET['name'];
@@ -146,51 +168,6 @@
             
         }
 
-        public static function addAdmin(){
-            if(isset($_POST['name'])){
-                $name = htmlspecialchars($_POST['name']);;
-                $email = '';
-                $password = '';
-                if(isset($_POST['email'])){
-                    $email = htmlspecialchars($_POST['email']);
-                }
-                if(isset($_POST['password'])){
-                    $password = md5(htmlspecialchars($_POST['password']));
-                }	
-                $sql = "insert into users (name,email,password) values ('" . $name ."','". $email ."','" . $password ."')";
-                $result = mysqli_query($conn,$sql);
-                if($result != 0){
-                    $result = array('success'=>1);
-                    return $result;
-                }
-            }
-        }
-
-        public function deleteAdmin(){
-            if(isset($_GET['id'])){
-                $id = $_GET['id'];
-                $sql = 'DELETE FROM users WHERE user_id = '.$id;
-                $result = mysqli_query($conn,$sql);
-                if($result != 0){
-                    $result = array('success'=>1);
-                    return $result;
-                }
-            }
-        }
-
-        public function editAdmin(){
-            if(isset($_POST['name']) && isset($_GET['id'])){
-                $name = $_POST['name'];
-                $email = $_POST['email'];
-                $sql = "UPDATE users SET name = '".$name."', email ='". $email ."' WHERE user_id = ".$_GET['id'];
-                $result = mysqli_query($conn,$sql);
-                if($result != 0){
-                    $result = array('success'=>1);
-                    return $result;
-                }
-            }
-            
-        }
 
         public static function makeAdmin(){
             if(isset($_POST['makeAdmin']) && isset($_GET['id'])){
@@ -205,7 +182,7 @@
         }
 
         }
-
+ 
         
     
 ?>

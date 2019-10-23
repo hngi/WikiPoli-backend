@@ -151,7 +151,11 @@
            }else{
                 return FALSE;
            }
+ 
+       
         }
+    
+    
 
         public static function get_all_posts($conn){
 

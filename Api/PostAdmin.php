@@ -65,7 +65,12 @@
 
         public function unpublish($id=NULL)
         {
-
+ $post = $this->db->select("SELECT * FROM posts WHERE post_id =$id;");
+          if (!$post) {
+          echo json_encode(['error'=>1,'message'=>'No Such Post','post_id'=>$id],true);
+          return;
+        
+          }
  if ($this->db->query("UPDATE posts SET post_status='draft' WHERE post_id =$id ")) {
             
             echo json_encode(['error'=>0,'message'=>'Post Unpublished Successfully','post_id'=>$id],true);
@@ -81,6 +86,13 @@
         public function edit($id=NULL)
         {
 
+
+ $post = $this->db->select("SELECT * FROM posts WHERE post_id =$id;");
+          if (!$post) {
+          echo json_encode(['error'=>1,'message'=>'No Such Post','post_id'=>$id],true);
+          return;
+        
+          }
           $title = $_POST['title'];
           $contents = $_POST['contents'];
           if ($this->db->query("UPDATE posts SET post_topic=$title,post=$contents  WHERE post_id =$id ")) {

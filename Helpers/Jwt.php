@@ -32,7 +32,8 @@
 
                 $key=Config::get_config('Jwt_secret');
                 $jwt=jwt::decode($token,$key,['HS256']);
-                return (array) $jwt;
+                $arr= (array) $jwt;
+                return $arr;
 
             }
             

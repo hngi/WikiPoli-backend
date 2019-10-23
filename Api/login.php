@@ -31,7 +31,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         }else{
             
             $arr=[
-                'iat'=>time()+172800,
+                'iat'=>microtime(true),
+                'exp'=>(microtime(true) * 1000)+172800,
                 'data'=>[
                     'id'=>$res['user_id'],
                     'email'=>$res['email']
@@ -41,7 +42,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $token=jwt::encode($arr);
             $data=[
                 'res'=>'Login Successful',
-                'status'=>404,
+                'status'=>200,
                 'token'=>$token
             ];
     

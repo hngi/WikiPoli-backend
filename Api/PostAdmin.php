@@ -41,6 +41,13 @@
 
         public function publish($id=NULL)
         {
+
+    $post = $this->db->select("SELECT * FROM posts WHERE post_id =$id;");
+          if (!$post) {
+          echo json_encode(['error'=>1,'message'=>'No Such Post','post_id'=>$id],true);
+          return;
+        
+          }
             
  if ($this->db->query("UPDATE posts SET post_status='published' WHERE post_id =$id ")) {
             

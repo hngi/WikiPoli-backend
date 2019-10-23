@@ -64,6 +64,28 @@
             }
         }
 
+        public static function create_post($conn,$user_id,$content,$topic){
+            
+            $year=date('Y');
+            $param="0123456789".time();
+                $letters = str_split($param);
+                $str = "";
+                for ($i=0; $i<=10; $i++) {
+                    $str .= $letters[rand(0, count($letters)-1)];
+                };
+
+                $sql = "INSERT INTO posts (post_id,post,post_author,post_date,post_topic) VALUES ('$str', '$content', '$user_id','$year','$topic')";
+                $result = mysqli_query($conn, $sql);
+    
+                if($result){
+    
+                    return true;
+    
+                }else{
+                    return false;
+                }
+        }
+
         public static function confirm_id($conn,$id){
 
             $checkpost="SELECT * FROM users WHERE user_id='$id'";
@@ -129,11 +151,48 @@
            }else{
                 return FALSE;
            }
-        }
-
+ 
        
         }
     
     
+
+        public static function get_all_posts($conn){
+
+            $checkpost="SELECT * FROM posts";
+            
+            $query=mysqli_query($conn, $checkpost);
+            
+            if(mysqli_num_rows($query) > 0){
+                $res=[];
+                $res=mysqli_fetch_array($query,MYSQLI_ASSOC);
+                // foreach ($res as  $value) {
+                //     array_push($result,$value);
+                // }
+                
+                return $res;
+            }else{
+                $arr=[];
+                return $arr;
+            }
+        }
+
+
+        public static function get_post_by_id($conn,$id){
+
+            $checkpost="SELECT * FROM posts WHERE post_id='$id'";
+            $result = mysqli_query($conn, $checkpost);
+            
+            if(mysqli_num_rows($result) > 0){
+
+                $result=mysqli_fetch_assoc($result);
+                return $result;
+            }else{
+                $arr=[];
+                return $arr;
+            }
+        }
+
+    }
 
 ?>

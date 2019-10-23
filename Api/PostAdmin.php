@@ -39,7 +39,7 @@
           $this->db->close();
     	}
 
-        public function publish($id)
+        public function publish($id=NULL)
         {
             
  if ($this->db->query("UPDATE posts SET post_status='published' WHERE post_id =$id ")) {
@@ -56,7 +56,7 @@
         }
 
 
-        public function unpublish($id)
+        public function unpublish($id=NULL)
         {
 
  if ($this->db->query("UPDATE posts SET post_status='draft' WHERE post_id =$id ")) {
@@ -71,7 +71,7 @@
                   $this->db->close();
         }
 
-        public function edit($id)
+        public function edit($id=NULL)
         {
 
           $title = $_POST['title'];

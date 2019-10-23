@@ -35,6 +35,8 @@
           echo json_encode(['error'=>0,'message'=>'Post Gotten Successfully','post'=>$post[0]],true);
 
           }
+
+          $this->db->close();
     	}
 
         public function publish()
@@ -64,6 +66,8 @@
             echo json_encode(['error'=>1,'message'=>'Error Occured','post_id'=>$post[0]['id']],true);
 
         }
+                  $this->db->close();
+
           }
 
     }

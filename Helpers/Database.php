@@ -105,7 +105,7 @@
                 $param="0123456789".time();
                 $letters = str_split($param);
                 $str = "";
-                for ($i=0; $i<=10; $i++) {
+                for ($i=0; $i<=8; $i++) {
                     $str .= $letters[rand(0, count($letters)-1)];
                 };
                 
@@ -190,6 +190,39 @@
             }else{
                 $arr=[];
                 return $arr;
+            }
+        }
+
+
+        public static function confirm_admin($conn,$id){
+
+            $checkpost="SELECT * FROM users WHERE user_id='$id'";
+            $result = mysqli_query($conn, $checkpost);
+            
+            if(mysqli_num_rows($result) > 0){
+
+                $result=mysqli_fetch_assoc($result);
+
+                if($result['admin']==1 || $result['super_admin']==1 ){
+
+                    return TRUE;
+                }
+                
+            }else{
+                return FALSE;
+            }
+
+        }
+
+
+        public function delete_post($conn,$post_id){
+
+            $sql = "DELETE FROM posts WHERE post_id='$post_id'";
+
+            if (mysqli_query($conn, $sql)) {
+                return TRUE;
+            } else {
+                return FALSE;
             }
         }
 

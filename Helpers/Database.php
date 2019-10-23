@@ -1,80 +1,84 @@
 <?php
-
-    
-    namespace Helper;
-    
-    use Helper\Config as Config;
+    include_once('Config.php');
+?>
+<?php
 
     class Database{
 
-        public static function db_connect(){
+        public $host = DB_HOST;
+		public $user = DB_USER;
+		public $pass = DB_PASS;
+		public $dbname = DB_NAME;
 
-            $all=Config::all_config();
-            $con = mysqli_connect($all['DB_HOST'],$all['DB_USERNAME'],$all['DB_PASSWORD']);
+		public $link;
+		public $error;
+		
+		public function __construct(){
+			$this->connectDB();
+		}
 
-            if (mysqli_connect_errno())
-            {
-                throw new Exception("Database is not connected".mysqli_connect_error());
-            }else{
+		// Connect to database
+		private function connectDB(){
+			$this->link = new mysqli($this->host, $this->user, $this->pass, $this->dbname);
+			if (!$this->link) {
+				$this->error = "Connection fail".$this->link->connect_error;
+				return false;
+			}
+		}
 
-                return $conn;
-            }
-        }
+		// Select Data or Read Data
+		public function select($query){
+			$result = $this->link->query($query) or die($this->link->error.__LINE__);
+			if ($result->num_rows > 0) {
+				return $result;
+			}
+			else {
+				return false;
+			}
+		}
 
-        public static function check_users($conn,$email){
-            // $sql = "SELECT * FROM users WHERE email='".$email."'";
-            $sql = "SELECT COUNT(*) FROM users WHERE email='" . $email . "'";
+		// Select Data or Read Dataand return total row
+		public function get_total_rows($query){
+			$result = $this->link->query($query) or die($this->link->error.__LINE__);
+			if ($result->num_rows > 0) {
+				return $result->num_rows;
+			}
+			else {
+				return false;
+			}
+		}
 
-            $result = mysqli_query($conn, $sql);
-            $result=mysqli_fetch_array($result);
+		// Insert Data
+		public function insert($query){
+			$insert_row = $this->link->query($query) or die($this->link->error.__LINE__);
+			if ($insert_row) {
+				return $insert_row;
+			}
+			else {
+				return false;
+			}
+		}
 
-            if($result['COUNT(*)'] > 0){
+		// Update Data 
+		public function update($query){
+			$update_row = $this->link->query($query) or die($this->link->error.__LINE__);
+			if ($update_row) {
+				return $update_row;
+			}
+			else {
+				return false;
+			}
+		}
 
-                
-                return $result;
-
-            }else{
-                return false;
-            }
-        }
-
-
-        public static function register_user($conn,$email,$password,$name){
-
-                $param="0123456789".time();
-                $letters = str_split($param);
-                $str = "";
-                for ($i=0; $i<=10; $i++) {
-                    $str .= $letters[rand(0, count($letters)-1)];
-                };
-                
-
-            $sql = "INSERT INTO users (user_id,name,email,password,admin,super_admin) VALUES ('$str', '$name', '$email','$password',0,0)";
-            $result = mysqli_query($conn, $sql);
-
-            if($result){
-
-                return true;
-
-            }else{
-                return false;
-            }
-        }
-
-        public static function login_user($conn,$email,$password){
-
-            $sql="SELECT * FROM users WHERE email='{$email}' AND password='{$password}'";
-            $result = mysqli_query($conn, $sql);
-
-            if(mysqli_num_rows($result)>0){
-
-                $result=mysqli_fetch_array($result,MYSQLI_ASSOC);
-                return $result;
-                mysqli_free_result($result);
-           }else{
-                return FALSE;
-           }
-        }
+		// Delete Data
+		public function delete($query){
+			$delete_row = $this->link->query($query) or die($this->link->error.__LINE__);
+			if ($delete_row) {
+				return $delete_row;
+			}
+			else {
+				return false;
+			}
+		}
     }
-    
 ?>

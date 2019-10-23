@@ -226,6 +226,58 @@
             }
         }
 
-    }
+        public static function addAdmin($conn,$email,$password,$name){
 
+            $param="0123456789".time();
+            $letters = str_split($param);
+            $str = "";
+            for ($i=0; $i<=8; $i++) {
+                $str .= $letters[rand(0, count($letters)-1)];
+            };
+                
+
+            $sql = "INSERT INTO users (user_id,name,email,password,admin,super_admin) VALUES ('$str', '$name', '$email','$password',1,0)";
+            $result = mysqli_query($conn, $sql);
+
+            if($result){
+
+                return true;
+
+            }else{
+                return false;
+            }
+        }
+
+        public static function getAllUsers(){
+            if(isset($_GET['name'])){
+                $name = $_GET['name'];
+                $sql = 'SELECT * FROM users WHERE name LIKE "%' .$name. '%"';
+            } else {
+                $sql = 'SELECT * FROM users';
+            }
+            $result = mysqli_query($conn,$sql);
+                if($result != 0){
+                    $result = array('success'=>1);
+                    return $result;
+                }
+            
+        }
+
+
+        public static function makeAdmin(){
+            if(isset($_POST['makeAdmin']) && isset($_GET['id'])){
+                $sql = "UPDATE users SET admin = '1' WHERE user_id = ".$_GET['id'];
+                $result = mysqli_query($conn,$sql);
+                if($result != 0){
+                $result = array('success'=>1);
+                return $result;
+                }
+            }
+            
+        }
+
+        }
+ 
+        
+    
 ?>

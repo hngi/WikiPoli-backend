@@ -13,15 +13,7 @@
     class PostAdmin {
     	public $db;
 
-    	function __construct()
-    	{
-        header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Headers: *");
-        header("Access-Control-Allow-Method: *");
-        header('Content-Type: application/json');
-
-    		$this->db = new Database();
-    	}
+    
 
         public function get($id = NULL)
     	{

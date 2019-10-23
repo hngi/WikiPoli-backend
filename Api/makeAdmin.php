@@ -12,30 +12,33 @@
 
             $conn=DB::db_connect(); 
 
-        
+            if(isset($_POST["email"]) ){
+                $email=$_POST["email"];
 
-            $res=DB::makeAdmin();
+                $res=DB::makeAdmin($conn,$email);
 
-            if($res){
+                    if($res){
 
-                $data=[
-                    'res'=>'Admin approved for user',
-                    'status'=>200
-                ];
-        
-                //http_response_code(404); 
-                return json_encode($data);
+                        $data=[
+                            'res'=>'Admin approved for user',
+                            'status'=>200
+                        ];
+                
+                        //http_response_code(404); 
+                        return json_encode($data);
 
-                }else{
+                        }else{
 
-                    $data=[
-                        'res'=>'Error approving user as admin',
-                        'status'=>404
-                    ];
-            
-                    //http_response_code(404); 
-                    return json_encode($data);
-                }
+                            $data=[
+                                'res'=>'Error approving user as admin',
+                                'status'=>404
+                            ];
+                    
+                            //http_response_code(404); 
+                            return json_encode($data);
+                        }
+              
+                    
         }else{
             $data=[
                 'res'=>'token not set',
@@ -44,7 +47,8 @@
             
             return json_encode($data);
         }
-
+    
+    }
     }
 
 ?>

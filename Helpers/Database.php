@@ -153,31 +153,16 @@
             }
         }
 
-        public static function getAllUsers(){
-            if(isset($_GET['name'])){
-                $name = $_GET['name'];
-                $sql = 'SELECT * FROM users WHERE name LIKE "%' .$name. '%"';
-            } else {
-                $sql = 'SELECT * FROM users';
-            }
-            $result = mysqli_query($conn,$sql);
-                if($result != 0){
-                    $result = array('success'=>1);
-                    return $result;
-                }
+
+        public static function makeAdmin($conn,$email){
             
-        }
-
-
-        public static function makeAdmin(){
-            if(isset($_POST['makeAdmin']) && isset($_GET['id'])){
-                $sql = "UPDATE users SET admin = '1' WHERE user_id = ".$_GET['id'];
+                $sql = "UPDATE users SET admin = '1' WHERE email = '{$email}'";
                 $result = mysqli_query($conn,$sql);
                 if($result != 0){
                 $result = array('success'=>1);
                 return $result;
                 }
-            }
+            
             
         }
 

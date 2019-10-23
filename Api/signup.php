@@ -26,7 +26,7 @@
                     ];
             
                     //http_response_code(404); 
-                    return json_encode($data);
+                    echo json_encode($data);
 
                 }else{
 
@@ -36,7 +36,7 @@
                     ];
             
                     //http_response_code(404); 
-                    return json_encode($data);
+                    echo json_encode($data);
                 }
     
 
@@ -48,7 +48,7 @@
                 ];
         
                 //http_response_code(404); 
-                return json_encode($data);
+                echo json_encode($data);
 
             }
 
@@ -61,7 +61,7 @@
             ];
     
             //http_response_code(404); 
-            return json_encode($data);
+            echo json_encode($data);
 
         }
 
@@ -73,7 +73,7 @@
         ];
 
         //http_response_code(404); 
-        return json_encode($data);
+        echo json_encode($data);
         
     }
 

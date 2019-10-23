@@ -74,6 +74,14 @@
 
         public function unpublish($id=NULL)
         {
+
+
+	if(isset($_POST['token']) && !empty($_POST['token'])){
+
+		$arr=jwt::decode($_POST['token']);
+
+
+
  $post = $this->db->select("SELECT * FROM posts WHERE post_id =$id;");
           if (!$post) {
           echo json_encode(['error'=>1,'message'=>'No Such Post','post_id'=>$id],true);
@@ -90,6 +98,11 @@
 
         }
                   $this->db->close();
+        }else{
+
+ echo json_encode(['error'=>1,'message'=>'Invalid token','post_id'=>$id],true);
+    }
+
         }
 
         public function edit($id=NULL)

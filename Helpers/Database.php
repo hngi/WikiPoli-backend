@@ -226,7 +226,11 @@
             }
         }
 
+    }
+
+
         public static function addAdmin($conn,$email,$password,$name){
+
 
             $param="0123456789".time();
             $letters = str_split($param);

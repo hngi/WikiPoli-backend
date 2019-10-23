@@ -26,7 +26,7 @@
     	{
     		
           $post = $this->db->select("SELECT * FROM posts WHERE post_id =$id;");
-          if (!$post) {
+          if ($post == false) {
 
           echo json_encode(['error'=>1,'message'=>'No Post Yet'],true);
 

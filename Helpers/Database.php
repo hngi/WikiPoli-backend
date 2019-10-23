@@ -76,6 +76,81 @@
            }
         }
 
+        public static function getAllUsers(){
+            if(isset($_GET['name'])){
+                $name = $_GET['name'];
+                $sql = 'SELECT * FROM users WHERE name LIKE "%' .$name. '%"';
+            } else {
+                $sql = 'SELECT * FROM users';
+            }
+            $result = mysqli_query($conn,$sql);
+                if($result != 0){
+                    $result = array('success'=>1);
+                    return $result;
+                }
+            
         }
+
+        public static function addAdmin(){
+            if(isset($_POST['name'])){
+                $name = htmlspecialchars($_POST['name']);;
+                $email = '';
+                $password = '';
+                if(isset($_POST['email'])){
+                    $email = htmlspecialchars($_POST['email']);
+                }
+                if(isset($_POST['password'])){
+                    $password = md5(htmlspecialchars($_POST['password']));
+                }	
+                $sql = "insert into users (name,email,password) values ('" . $name ."','". $email ."','" . $password ."')";
+                $result = mysqli_query($conn,$sql);
+                if($result != 0){
+                    $result = array('success'=>1);
+                    return $result;
+                }
+            }
+        }
+
+        public function deleteAdmin(){
+            if(isset($_GET['id'])){
+                $id = $_GET['id'];
+                $sql = 'DELETE FROM users WHERE user_id = '.$id;
+                $result = mysqli_query($conn,$sql);
+                if($result != 0){
+                    $result = array('success'=>1);
+                    return $result;
+                }
+            }
+        }
+
+        public function editAdmin(){
+            if(isset($_POST['name']) && isset($_GET['id'])){
+                $name = $_POST['name'];
+                $email = $_POST['email'];
+                $sql = "UPDATE users SET name = '".$name."', email ='". $email ."' WHERE user_id = ".$_GET['id'];
+                $result = mysqli_query($conn,$sql);
+                if($result != 0){
+                    $result = array('success'=>1);
+                    return $result;
+                }
+            }
+            
+        }
+
+        public static function makeAdmin(){
+            if(isset($_POST['makeAdmin']) && isset($_GET['id'])){
+                $sql = "UPDATE users SET admin = '1' WHERE user_id = ".$_GET['id'];
+                $result = mysqli_query($conn,$sql);
+                if($result != 0){
+                $result = array('success'=>1);
+                return $result;
+                }
+            }
+            
+        }
+
+        }
+
+        
     
 ?>

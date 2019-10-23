@@ -49,7 +49,17 @@
 
         public function unpublish($id)
         {
-                    # code...
+
+ if ($this->db->query("UPDATE posts SET post_status='draft' WHERE post_id =$id ")) {
+            
+            echo json_encode(['error'=>0,'message'=>'Post Unpublished Successfully','post_id'=>$id],true);
+
+          }else{
+
+            echo json_encode(['error'=>1,'message'=>'Error Occured','post_id'=>$id],true);
+
+        }
+                  $this->db->close();
         }
 
         public function edit($id)
@@ -59,11 +69,11 @@
           $contents = $_POST['contents'];
           if ($this->db->query("UPDATE posts SET post_topic=$title,post=$contents  WHERE post_id =$id ")) {
             
-            echo json_encode(['error'=>0,'message'=>'Post Edited Successfully','post_id'=>$post[0]['id']],true);
+            echo json_encode(['error'=>0,'message'=>'Post Edited Successfully','post_id'=>$id],true);
 
           }else{
 
-            echo json_encode(['error'=>1,'message'=>'Error Occured','post_id'=>$post[0]['id']],true);
+            echo json_encode(['error'=>1,'message'=>'Error Occured','post_id'=>$id],true);
 
         }
                   $this->db->close();

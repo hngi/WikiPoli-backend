@@ -268,7 +268,37 @@
                 return FALSE;
             }
         }
+        public static function block_user($con, $uid)
+        {
+        if(isset($uid))
+        {
+        $alter = "ALTER TABLE users ADD COLUMN status int (2) NOT NULL DEFAULT(0)";
+        mysqli_query($con, $alter);
 
+        $sql = "UPDATE users SET status = 1 WHERE user_id = $uid";
+        mysqli_query($con, $sql);
+        
+        return true;
+        }
+        else
+        {
+        return false;
+        }
+        }
+
+        public static function unblock_user($con, $uid)
+        {
+        if(isset($uid))
+        {
+        $sql = "UPDATE users SET status = 0 WHERE user_id = $uid";
+        mysqli_query($con, $sql);
+        
+        return true;
+        }
+        else
+        {
+        return false;
+        }
     }
 
 

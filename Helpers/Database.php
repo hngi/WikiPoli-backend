@@ -17,7 +17,7 @@
                 throw new Exception("Database is not connected".mysqli_connect_error());
             }else{
 
-                return $con;
+                return $conn;
             }
         }
 
@@ -75,7 +75,6 @@
                 return FALSE;
            }
         }
-
-        }
+    }
     
 ?>

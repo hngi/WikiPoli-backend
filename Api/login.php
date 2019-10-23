@@ -42,7 +42,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $token=jwt::encode($arr);
             $data=[
                 'res'=>'Login Successful',
-                'status'=>404,
+                'status'=>200,
                 'token'=>$token
             ];
     

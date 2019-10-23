@@ -52,8 +52,19 @@
 
         public function edit($id)
         {
-            # code...
+
+          $title = $_POST['title'];
+          $contents = $_POST['contents'];
+          if ($this->db->query("UPDATE posts SET post_topic=$title,post=$contents  WHERE post_id =$id ")) {
+            
+            echo json_encode(['error'=>0,'message'=>'Post Edited Successfully','post_id'=>$post[0]['id']],true);
+
+          }else{
+
+            echo json_encode(['error'=>1,'message'=>'Error Occured','post_id'=>$post[0]['id']],true);
+
         }
+          }
 
     }
    

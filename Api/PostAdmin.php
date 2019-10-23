@@ -25,6 +25,11 @@
 
         public function get($id = NULL)
     	{
+    	if(isset($_POST['token']) && !empty($_POST['token'])){
+
+		$arr=jwt::decode($_POST['token']);
+
+
 
           $post = $this->db->select("SELECT * FROM posts WHERE post_id =$id;");
           if ($post == false) {
@@ -38,7 +43,11 @@
           }
 
           $this->db->close();
-    	}
+    	}else{
+
+ echo json_encode(['error'=>1,'message'=>'Invalid token','post_id'=>$id],true);
+    }
+        }
 
         public function publish($id=NULL)
         {
@@ -108,8 +117,6 @@
         public function edit($id=NULL)
         {
 
-	if(isset($_POST['token']) && !empty($_POST['token'])){
-
 		$arr=jwt::decode($_POST['token']);
 
  $post = $this->db->select("SELECT * FROM posts WHERE post_id =$id;");
@@ -130,11 +137,8 @@
 
         }
                   $this->db->close();
-
-          }else{
-
- echo json_encode(['error'=>1,'message'=>'Invalid token','post_id'=>$id],true);
     }
+
 
     }
     }

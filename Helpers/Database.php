@@ -53,7 +53,7 @@
 
                   $all=Config::all_config();
 
-            $con = mysqli_connect($all['DB_HOST'],$all['DB_USERNAME'],$all['DB_PASSWORD']);
+            $con = mysqli_connect($all['DB_HOST'],$all['DB_USERNAME'],$all['DB_PASSWORD'],$all['DB_NAME']);
 
             if (mysqli_connect_errno())
             {

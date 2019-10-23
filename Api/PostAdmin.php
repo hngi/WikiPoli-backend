@@ -39,10 +39,19 @@
           $this->db->close();
     	}
 
-        public function publish()
+        public function publish($id)
         {
             
+ if ($this->db->query("UPDATE posts SET post_status='published' WHERE post_id =$id ")) {
+            
+            echo json_encode(['error'=>0,'message'=>'Post Published Successfully','post_id'=>$id],true);
 
+          }else{
+
+            echo json_encode(['error'=>1,'message'=>'Error Occured','post_id'=>$id],true);
+
+        }
+                  $this->db->close();
 
         }
 

@@ -330,7 +330,7 @@
 
             if(isset($uid)){
                 $sql = "UPDATE users SET admin = 1 WHERE user_id = $uid";
-                mysqli_query($con, $sql);
+                mysqli_query($conn, $sql);
             
                 return true;
             }else{

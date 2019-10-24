@@ -16,10 +16,10 @@
     
                 if(DB::confirm_super_admin($conn,$arr['data']->id)){
     
-                    if(isset($_POST['email'])&& !empty($_POST['email'])){
-                        $email=$_POST['email'];
+                    if(isset($_POST['user_id'])&& !empty($_POST['user_id'])){
+                        $uid = $_POST['user_id'];
     
-                        if(DB::makeAdmin($conn,$email)){
+                        if(DB::makeAdmin($conn,$uid)){
     
                             $data=[
                                 'res'=>'User Successfully Made Admin',

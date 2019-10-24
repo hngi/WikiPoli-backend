@@ -5,7 +5,7 @@ use Helper\ForgotPassword as FP;
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
- if(isset($_POST["email"]) && isset($_POST["submit"])
+ if(isset($_POST["email"]) && isset($_POST["submit"]))
  {
   $email = $_POST["email"];
   
@@ -35,8 +35,36 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
        ];
   }
  }
+   else
+ {
+  $data = [
+    'res' => 'Unable To Update Password To Database.',
+    'status' => 404
+     ];
 }
 }
+ else
+{
+ $data = [
+   'res' => 'Email Does Not Exists In Our Database.',
+   'status' => 404
+    ];
+}
+}
+ else
+{
+ $data = [
+   'res' => 'Invalid Input Data.',
+   'status' => 404
+    ];
+}
+}
+ else
+{
+ $data = [
+   'res' => 'Invalid Request Method.',
+   'status' => 404
+    ];
 }
 
 // Output json

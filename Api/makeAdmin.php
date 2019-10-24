@@ -26,16 +26,17 @@
                 //http_response_code(404); 
                 return json_encode($data);
 
-                }else{
+            }else{
 
-                    $data=[
-                        'res'=>'Error approving user as admin',
-                        'status'=>404
-                    ];
+                $data=[
+                    'res'=>'Error approving user as admin',
+                    'status'=>404
+                ];
             
-                    //http_response_code(404); 
-                    return json_encode($data);
-                }
+                //http_response_code(404); 
+                return json_encode($data);
+            }
+            
         }else{
             $data=[
                 'res'=>'token not set',

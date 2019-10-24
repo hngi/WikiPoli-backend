@@ -111,32 +111,29 @@ public static function send_email($email)
  $fromName = 'Wikipoli Team'; 
  $subject = "Your Wikipoli Account New Password"; 
  
- $htmlContent = ' 
+ $htmlContent = " 
     <html> 
     <head> 
     <title>New Wikipoli Password</title> 
     </head> 
     <body>
     <h1>Your Wikipoli Account Details</h1>
-    <table cellspacing="0" style="border: 2px dashed #FB4314; width: 100%;"> 
+    <table cellspacing='0' style='border: 2px dashed #FB4314; width: 100%;'> 
     <tr> 
     <td>Name:</td>
-    <td>'".$name."'</td> 
-    </tr> 
-    <tr style="background-color: #e0e0e0;"> 
-    <th>Email:</th><td>contact@codexworld.com</td> 
-    </tr> 
+    <td>$name</td> 
+    </tr>  
     <tr> 
     <td>Email:</td>
-    <td>'".$email."'</td> 
+    <td>$email</td> 
     </tr>
     <tr> 
     <td>New Password:</td>
-    <td>'".$new_pass."'</td> 
+    <td>$new_pass</td> 
     </tr> 
     </table> 
     </body> 
-    </html>'; 
+    </html>"; 
  
  // Set content-type header for sending HTML email 
  $headers = "MIME-Version: 1.0" . "\r\n"; 
@@ -144,8 +141,8 @@ public static function send_email($email)
  
  // Additional headers 
  $headers .= 'From: '.$fromName.'<'.$from.'>' . "\r\n"; 
- $headers .= 'Cc: '".$email."' . "\r\n"; 
- $headers .= 'Bcc: '".$email."' . "\r\n"; 
+ $headers .= 'Cc: '.$email.' . "\r\n"; 
+ $headers .= 'Bcc: '.$email.' . "\r\n"; 
  
  if(mail($to, $subject, $htmlContent, $headers))
  { 

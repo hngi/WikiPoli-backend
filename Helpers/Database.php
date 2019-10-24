@@ -23,30 +23,30 @@
 
 
 
-    public function query($sql) {
-        if ($this->conn->query($sql) === true) {
-            return true;
-        }
-        return false;
-    }
-
-  public function select($sql) {
-        $result = $this->conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            $resultToReturn = [];
-            while ($row = $result->fetch_assoc()) {
-                array_push($resultToReturn, $row);
+        public function query($sql) {
+            if ($this->conn->query($sql) === true) {
+                return true;
             }
-            return $resultToReturn;
+            return false;
         }
-        return false;
-    }
+
+        public function select($sql) {
+            $result = $this->conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                $resultToReturn = [];
+                while ($row = $result->fetch_assoc()) {
+                    array_push($resultToReturn, $row);
+                }
+                return $resultToReturn;
+            }
+            return false;
+        }
 
 
-  public function close() {
-    $this->conn->close();
-  }
+        public function close() {
+            $this->conn->close();
+        }
 
 
         public static function db_connect(){
@@ -326,16 +326,37 @@
         }
 
 
-        public static function makeAdmin($conn,$email){
+        public function makeAdmin($conn,$uid){
+
+            if(isset($uid)){
+                $sql = "UPDATE users SET admin = 1 WHERE user_id = $uid";
+                mysqli_query($con, $sql);
             
-                $sql = "UPDATE users SET admin = '1' WHERE email = '{$email}'";
-                $result = mysqli_query($conn,$sql);
-                if($result != 0){
-                $result = array('success'=>1);
-                return $result;
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+
+        public static function confirm_super_admin($conn,$id){
+
+            $checkpost="SELECT * FROM users WHERE user_id='$id'";
+            $result = mysqli_query($conn, $checkpost);
+            
+            if(mysqli_num_rows($result) > 0){
+
+                $result=mysqli_fetch_assoc($result);
+
+                if($result['super_admin']==1 ){
+
+                    return TRUE;
                 }
-            
-            
+                
+            }else{
+                return FALSE;
+            }
+
         }
 
         }

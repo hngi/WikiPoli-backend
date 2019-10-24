@@ -6,7 +6,7 @@ use Helper\Database as DB;
 use Helper\Jwt_client as jwt;
 
 
-if($_SERVER['REQUEST_METHOD']=='POST'){
+if($_SERVER['REQUEST_METHOD']=='POST'){ 
 
 	if(isset($_POST['token'])&& !empty($_POST['token'])){
 

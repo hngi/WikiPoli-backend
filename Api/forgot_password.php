@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
   {
    // Update password
    $update = FP::update_password($email);
-  if($updat == true)
+  if($update == true)
   {
    // Send user an email
    $send = FP::send_email($email);

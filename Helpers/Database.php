@@ -400,6 +400,56 @@
 
         }
 
+        public static function showAllUsers($conn){
+
+            $user="SELECT * FROM users";
+            
+            $query=mysqli_query($conn, $user);
+            
+            if(mysqli_num_rows($query) > 0){
+                $res=[];
+                
+                
+                while($result=mysqli_fetch_array($query,MYSQLI_ASSOC)){
+                    $res[]=$result;
+                }
+                
+                return $res;
+            }else{
+                $arr=[];
+                return $arr;
+            }
+        }
+
+        public static function showUserById($conn,$id){
+
+            $sql="SELECT * FROM users WHERE user_id='".$id."'";
+            $result = mysqli_query($conn, $sql);
+            
+            if(mysqli_num_rows($result) > 0){
+
+                $result=mysqli_fetch_assoc($result);
+                return $result;
+            }else{
+                $arr=[];
+                return $arr;
+            }
+        }
+
+        public static function check_users_id($conn,$id){
+            $sql = "SELECT * FROM users WHERE user_id='".$id."'";
+
+            $result = mysqli_query($conn, $sql);
+
+            if(mysqli_num_rows($result) > 0){
+
+                return TRUE;
+            }else{
+                return FALSE;
+            }
+
+        }
+
     }
  
         

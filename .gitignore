@@ -1,2 +1,3 @@
 /vendor
-
+/Helpers/Config.php
+/Helpers/ForgotPassword

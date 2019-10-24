@@ -6,7 +6,7 @@ use Helper\Database as DB;
 use Helper\Jwt_client as jwt;
 
 
-if($_SERVER['REQUEST_METHOD']=='POST'){ 
+if($_SERVER['REQUEST_METHOD']=='POST'){
 
 	if(isset($_POST['token'])&& !empty($_POST['token'])){
 
@@ -18,28 +18,44 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
 			if(DB::confirm_admin($conn,$arr['data']->id)){
 
-				if(isset($_POST['post_id'])&& !empty($_POST['post_id'])){
+				if(isset($_POST['user_id'])&& !empty($_POST['user_id'])){
 
-					if(DB::delete_post($conn,$_POST['post_id'])){
+					
+					if(DB::confirm_id($conn,$_POST['user_id'])){
 
-						$data=[
-							'res'=>'Deletion Successful',
-							'status'=>200
-						];
+
+						if(DB::delete_user($conn,$_POST['user_id'])){
+
+							$data=[
+								'res'=>'User Successfully Deleted',
+								'status'=>200
+							];
+								
 							
-						
-						echo json_encode($data);
-
+							echo json_encode($data);
+	
+	
+						}else{
+	
+							$data=[
+								'res'=>'Unable To Delete',
+								'status'=>500
+							];
+								
+							
+							echo json_encode($data);
+						}
 
 					}else{
 
 						$data=[
-							'res'=>'Deletion Unsuccessful',
-							'status'=>500
+							'res'=>'User not Found',
+							'status'=>404
 						];
 							
 						
 						echo json_encode($data);
+
 					}
 				}else{
 
@@ -68,8 +84,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		}else{
 			$data=[
 				'res'=>'Invalid User',
-				'status'=>404,
-				'err'=>mysqli_error($conn)
+				'status'=>404
 			];
 				
 			

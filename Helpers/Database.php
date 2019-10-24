@@ -23,30 +23,30 @@
 
 
 
-    public function query($sql) {
-        if ($this->conn->query($sql) === true) {
-            return true;
-        }
-        return false;
-    }
-
-  public function select($sql) {
-        $result = $this->conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            $resultToReturn = [];
-            while ($row = $result->fetch_assoc()) {
-                array_push($resultToReturn, $row);
+        public function query($sql) {
+            if ($this->conn->query($sql) === true) {
+                return true;
             }
-            return $resultToReturn;
+            return false;
         }
-        return false;
-    }
+
+        public function select($sql) {
+            $result = $this->conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                $resultToReturn = [];
+                while ($row = $result->fetch_assoc()) {
+                    array_push($resultToReturn, $row);
+                }
+                return $resultToReturn;
+            }
+            return false;
+        }
 
 
-  public function close() {
-    $this->conn->close();
-  }
+        public function close() {
+            $this->conn->close();
+        }
 
 
         public static function db_connect(){
@@ -99,8 +99,14 @@
 
             if(mysqli_num_rows($result) > 0){
 
-                $result=mysqli_fetch_assoc($result);
-                return $result;
+                $res=[];
+                
+                
+                while($resp=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                    $res[]=$resp;
+                }
+                
+                return $res;
             }else{
                 $arr=[];
                 return $arr;
@@ -377,32 +383,38 @@
             }
         }
 
-        public static function getAllUsers(){
-            if(isset($_GET['name'])){
-                $name = $_GET['name'];
-                $sql = 'SELECT * FROM users WHERE name LIKE "%' .$name. '%"';
-            } else {
-                $sql = 'SELECT * FROM users';
-            }
-            $result = mysqli_query($conn,$sql);
-                if($result != 0){
-                    $result = array('success'=>1);
-                    return $result;
-                }
+
+        public function makeAdmin($conn,$uid){
+
+            if(isset($uid)){
+                $sql = "UPDATE users SET admin = 1 WHERE user_id = $uid";
+                mysqli_query($conn, $sql);
             
+                return true;
+            }else{
+                return false;
+            }
         }
 
 
-        public static function makeAdmin(){
-            if(isset($_POST['makeAdmin']) && isset($_GET['id'])){
-                $sql = "UPDATE users SET admin = '1' WHERE user_id = ".$_GET['id'];
-                $result = mysqli_query($conn,$sql);
-                if($result != 0){
-                $result = array('success'=>1);
-                return $result;
-                }
-            }
+        public static function confirm_super_admin($conn,$id){
+
+            $checkpost="SELECT * FROM users WHERE user_id='$id'";
+            $result = mysqli_query($conn, $checkpost);
             
+            if(mysqli_num_rows($result) > 0){
+
+                $result=mysqli_fetch_assoc($result);
+
+                if($result['super_admin']==1 ){
+
+                    return TRUE;
+                }
+                
+            }else{
+                return FALSE;
+            }
+
         }
 
         }

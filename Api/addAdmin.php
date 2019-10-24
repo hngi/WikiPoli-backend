@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         //print_r($arr['data']->id);
         $conn=DB::db_connect();
 
-        if(DB::confirm_admin($conn,$arr['data']->id)){
+        if(DB::confirm_super_admin($conn,$arr['data']->id)){
 
             if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password'])){
 

@@ -16,30 +16,45 @@
     
                 if(DB::confirm_super_admin($conn,$arr['data']->id)){
     
-                    if(isset($_POST['email'])&& !empty($_POST['email'])){
-                        $email=$_POST['email'];
+                    if(isset($_POST['user_id'])&& !empty($_POST['user_id'])){
+                        $user_id=$_POST['user_id'];
+                        
+                        if(DB::confirm_id($conn,$user_id)){
+
+
+                            if(DB::makeAdmin($conn,$user_id)){
     
-                        if(DB::makeAdmin($conn,$email)){
-    
-                            $data=[
-                                'res'=>'User Successfully Made Admin',
-                                'status'=>200
-                            ];
+                                $data=[
+                                    'res'=>'User Successfully Made Admin',
+                                    'status'=>200
+                                ];
+                                    
                                 
-                            
-                            echo json_encode($data);
-    
-    
+                                echo json_encode($data);
+        
+        
+                            }else{
+        
+                                $data=[
+                                    'res'=>'Operation not successfull',
+                                    'status'=>500
+                                ];
+                                    
+                                
+                                echo json_encode($data);
+                            }
+
                         }else{
-    
+
                             $data=[
-                                'res'=>'Operation not successfull',
-                                'status'=>500
+                                'res'=>'User not Found',
+                                'status'=>404
                             ];
                                 
                             
                             echo json_encode($data);
                         }
+                        
                     }else{
     
                         $data=[

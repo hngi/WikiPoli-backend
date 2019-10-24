@@ -113,7 +113,7 @@
             $param="0123456789".time();
                 $letters = str_split($param);
                 $str = "";
-                for ($i=0; $i<=10; $i++) {
+                for ($i=0; $i<=8; $i++) {
                     $str .= $letters[rand(0, count($letters)-1)];
                 };
 
@@ -208,10 +208,11 @@
             
             if(mysqli_num_rows($query) > 0){
                 $res=[];
-                $res=mysqli_fetch_array($query,MYSQLI_ASSOC);
-                // foreach ($res as  $value) {
-                //     array_push($result,$value);
-                // }
+                
+                
+                while($result=mysqli_fetch_array($query,MYSQLI_ASSOC)){
+                    $res[]=$result;
+                }
                 
                 return $res;
             }else{
@@ -234,6 +235,56 @@
                 $arr=[];
                 return $arr;
             }
+        }
+
+        public static function user_blocked($conn,$id){
+
+            $checkpost="SELECT * FROM blocked_users WHERE user_id='$id'";
+            $result = mysqli_query($conn, $checkpost);
+            
+            if(mysqli_num_rows($result) > 0){
+
+                
+
+                    return TRUE;
+               
+                
+            }else{
+                return FALSE;
+            }
+        }
+
+
+        public static function user_unblocked($conn,$id){
+
+            $checkpost="DELETE FROM  blocked_users WHERE user_id='$id'";
+            
+            
+            if($result = mysqli_query($conn, $checkpost)){
+
+                
+
+                return TRUE;
+               
+                
+            }else{
+                return FALSE;
+            }
+        }
+
+        public static function block_user($conn,$user_id){
+
+            $sql = "INSERT INTO blocked_users (user_id) VALUES ('$user_id')";
+            $result = mysqli_query($conn, $sql);
+
+            if($result){
+
+                return true;
+
+            }else{
+                return false;
+            }
+
         }
 
 
@@ -268,24 +319,7 @@
                 return FALSE;
             }
         }
-        public static function block_user($con, $uid)
-        {
-        if(isset($uid))
-        {
-        $alter = "ALTER TABLE users ADD COLUMN status int (2) NOT NULL DEFAULT(0)";
-        mysqli_query($con, $alter);
-
-        $sql = "UPDATE users SET status = 1 WHERE user_id = $uid";
-        mysqli_query($con, $sql);
         
-        return true;
-        }
-        else
-        {
-        return false;
-        }
-        }
-
         public static function unblock_user($con, $uid)
         {
         if(isset($uid))

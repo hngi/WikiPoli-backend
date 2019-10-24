@@ -272,6 +272,24 @@
             }
         }
 
+        public static function delete_user($conn,$id){
+
+            $checkpost="DELETE FROM  users WHERE user_id='$id'";
+            
+            
+            if($result = mysqli_query($conn, $checkpost)){
+
+                
+
+                return TRUE;
+               
+                
+            }else{
+                return FALSE;
+            }
+        }
+
+
         public static function block_user($conn,$user_id){
 
             $sql = "INSERT INTO blocked_users (user_id) VALUES ('$user_id')";

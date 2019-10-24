@@ -140,9 +140,9 @@ public static function send_email($email)
  $headers .= "Content-type: text/html;charset=UTF-8" . "\r\n"; 
  
  // Additional headers 
- $headers .= 'From: '.$fromName.'<'.$from.'>' . "\r\n"; 
- $headers .= 'Cc: '.$email.' . "\r\n"; 
- $headers .= 'Bcc: '.$email.' . "\r\n"; 
+ $headers .= "From: ".$fromName."<".$from.">" . "\r\n"; 
+ $headers .= "Cc: ".$email."" . "\r\n";
+ $headers .= "Bcc: ".$email."" . "\r\n";
  
  if(mail($to, $subject, $htmlContent, $headers))
  { 

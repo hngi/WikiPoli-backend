@@ -10,7 +10,7 @@
     public $all;
     public function __construct(){
 
-      $this->all=Config::all_config();
+        $this->all=Config::all_config();
         // Create connection
         $this->conn = new \mysqli($this->all['DB_HOST'], $this->all['DB_USERNAME'], $this->all['DB_PASSWORD'],  $this->all['DB_NAME']);
 
@@ -19,7 +19,7 @@
             die("Connection failed: " . $this->conn->connect_error);
         }
         //echo "Connection was successfully established!";
-  }
+    }
 
 
 
@@ -64,6 +64,7 @@
             }
         }
 
+        // Checks if user exists
         public static function check_users($conn,$email){
             $sql = "SELECT * FROM users WHERE email='".$email."'";
 
@@ -78,7 +79,7 @@
 
         }
 
-
+        // Checks for posts
         public static function check_post($conn,$id){
             $checkpost="SELECT * FROM posts WHERE post_id='$id'";
             $result = mysqli_query($conn, $checkpost);
@@ -92,6 +93,7 @@
 
         }
 
+        // Checks for  all comments related to a post
         public static function get_comment($conn,$post_id){
 
             $checkpost="SELECT * FROM comments WHERE post_id='$post_id'";
@@ -113,6 +115,7 @@
             }
         }
 
+        // Publishing a new post
         public static function create_post($conn,$user_id,$content,$topic){
             
             $year=date('Y');
@@ -135,6 +138,7 @@
                 }
         }
 
+        // Confirming a user
         public static function confirm_id($conn,$id){
 
             $checkpost="SELECT * FROM users WHERE user_id='$id'";
@@ -149,6 +153,7 @@
 
         }
 
+        // Registering a new user
         public static function register_user($conn,$email,$password,$name){
 
                 $param="0123456789".time();
@@ -171,7 +176,7 @@
             }
         }
 
-
+        // Publishing new comments
         public static function insert_comment($conn,$id,$post_id,$comment){
 
             $insertComments = "INSERT INTO comments (comment, post_id, user_id ) VALUES ( '$comment', '$post_id', '$id')";
@@ -187,6 +192,7 @@
 
         }
 
+        // loging in an existing user
         public static function login_user($conn,$email,$password){
 
             $sql="SELECT * FROM users WHERE email='{$email}' AND password='{$password}'";
@@ -204,8 +210,7 @@
        
         }
     
-    
-
+        // Selects all posts
         public static function get_all_posts($conn){
 
             $checkpost="SELECT * FROM posts";
@@ -227,7 +232,7 @@
             }
         }
 
-
+        // Selects posts by their ids
         public static function get_post_by_id($conn,$id){
 
             $checkpost="SELECT * FROM posts WHERE post_id='$id'";
@@ -243,75 +248,58 @@
             }
         }
 
+        // Selects Blocked users
         public static function user_blocked($conn,$id){
 
             $checkpost="SELECT * FROM blocked_users WHERE user_id='$id'";
             $result = mysqli_query($conn, $checkpost);
             
             if(mysqli_num_rows($result) > 0){
-
-                
-
                     return TRUE;
-               
-                
             }else{
                 return FALSE;
             }
         }
 
-
+        // Unblocks users
         public static function user_unblocked($conn,$id){
 
             $checkpost="DELETE FROM  blocked_users WHERE user_id='$id'";
             
-            
             if($result = mysqli_query($conn, $checkpost)){
-
-                
-
                 return TRUE;
-               
-                
             }else{
                 return FALSE;
             }
         }
 
+        // Deletes users
         public static function delete_user($conn,$id){
 
             $checkpost="DELETE FROM  users WHERE user_id='$id'";
             
-            
             if($result = mysqli_query($conn, $checkpost)){
-
-                
-
-                return TRUE;
-               
-                
+                return TRUE;  
             }else{
                 return FALSE;
             }
         }
 
-
+        // Blocks users
         public static function block_user($conn,$user_id){
 
             $sql = "INSERT INTO blocked_users (user_id) VALUES ('$user_id')";
             $result = mysqli_query($conn, $sql);
 
             if($result){
-
                 return true;
-
             }else{
                 return false;
             }
 
         }
 
-
+        // Confirms an Admin
         public static function confirm_admin($conn,$id){
 
             $checkpost="SELECT * FROM users WHERE user_id='$id'";
@@ -332,7 +320,7 @@
 
         }
 
-
+        // Deletes a post
         public function delete_post($conn,$post_id){
 
             $sql = "DELETE FROM posts WHERE post_id='$post_id'";
@@ -344,25 +332,20 @@
             }
         }
         
-        public static function unblock_user($con, $uid)
-        {
-        if(isset($uid))
-        {
-        $sql = "UPDATE users SET status = 0 WHERE user_id = $uid";
-        mysqli_query($con, $sql);
-        
-        return true;
+        // Unblocks users
+        public static function unblock_user($con, $uid){
+            if(isset($uid)){
+                $sql = "UPDATE users SET status = 0 WHERE user_id = $uid";
+                mysqli_query($con, $sql);
+                
+                return true;
+                }else{
+                    return false;
+            }
         }
-        else
-        {
-        return false;
-        }
-    }
 
-
+        // Creates an Admin
         public static function addAdmin($conn,$email,$password,$name){
-
-
             $param="0123456789".time();
             $letters = str_split($param);
             $str = "";
@@ -383,7 +366,7 @@
             }
         }
 
-
+        // Changing a User to Admin
         public function makeAdmin($conn,$uid){
 
             if(isset($uid)){
@@ -396,7 +379,7 @@
             }
         }
 
-
+        // Confirms a Super Admin
         public static function confirm_super_admin($conn,$id){
 
             $checkpost="SELECT * FROM users WHERE user_id='$id'";
@@ -426,9 +409,58 @@
             
             if(mysqli_num_rows($result) > 0){
                 return $result;
+            } else{
+                return FALSE;
+            }
+        }
+
+        public static function showAllUsers($conn){
+
+            $user="SELECT * FROM users";
+            
+            $query=mysqli_query($conn, $user);
+            
+            if(mysqli_num_rows($query) > 0){
+                $res=[];
+                
+                
+                while($result=mysqli_fetch_array($query,MYSQLI_ASSOC)){
+                    $res[]=$result;
+                }
+                
+                return $res;
             }else{
                 $arr=[];
                 return $arr;
+            }
+        }
+
+        public static function showUserById($conn,$id){
+
+            $sql="SELECT * FROM users WHERE user_id='".$id."'";
+            $result = mysqli_query($conn, $sql);
+            
+            if(mysqli_num_rows($result) > 0){
+
+                $result=mysqli_fetch_assoc($result);
+
+                return $result;
+            }else{
+                $arr=[];
+                return $arr;
+            }
+        }
+
+        public static function check_users_id($conn,$id){
+            $sql = "SELECT * FROM users WHERE user_id='".$id."'";
+
+            $result = mysqli_query($conn, $sql);
+
+            if(mysqli_num_rows($result) > 0){
+
+                return TRUE;
+            }else{
+                return FALSE;
             }
         }
 

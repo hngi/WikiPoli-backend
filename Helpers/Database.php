@@ -417,7 +417,22 @@
 
         }
 
+        // share post feature by Kazeem
+        public static function getPostsToShare($conn, $post_id)
+        {
+            // join the table of the users and the posts so as to get the user's name where the user_id is the same as the post_author
+            $query = "SELECT posts.*, users.name FROM posts INNER JOIN users ON posts.post_author = users.user_id WHERE post_id = '$post_id' ORDER BY post_id DESC";
+            $result = mysqli_query($conn, $query);
+            
+            if(mysqli_num_rows($result) > 0){
+                return $result;
+            }else{
+                $arr=[];
+                return $arr;
+            }
         }
+
+    }
  
         
     

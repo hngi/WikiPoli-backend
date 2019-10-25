@@ -129,7 +129,7 @@ public static function send_email($email)
     </tr> 
     </table> 
     </body> 
-    </html>'; 
+    </html>"; 
  
  // Set content-type header for sending HTML email 
  $headers = "MIME-Version: 1.0" . "\r\n"; 

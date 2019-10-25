@@ -3,12 +3,12 @@
 
 /* 
 
-    This is the admin Class 
+    This is the superAdmin Class 
 */
 
     namespace Helper;
 
-    class admin{
+    class superAdmin{
 
         public static function say_hello(){
 

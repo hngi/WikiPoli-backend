@@ -10,14 +10,14 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
     $conn=DB::db_connect();
 
-    if(isset($_GET['post_id']) && !empty($_GET['post_id'])){
-        $id=$_GET['post_id'];
+    if(isset($_GET['user_id']) && !empty($_GET['user_id'])){
+        $id=$_GET['user_id'];
 
-        if (DB::check_post($conn,$id)) {
+        if (DB::check_users_id($conn,$id)) {
            
-            $res=DB::get_post_by_id($conn,$id);
+            $res=DB::showUserById($conn,$id);
             $data=[
-                'res'=>'Single Post Retrieved',
+                'res'=>' User Retrieved',
                 'status'=>200,
                 'data'=>$res
             ];
@@ -28,8 +28,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
             $data=[
                 'res'=>'Invalid Parameter',
-                'status'=>200
-                
+                'status'=>200 
             ];
         
             //http_response_code(404); 
@@ -37,10 +36,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
     }else{
 
-        $res=DB::get_all_posts($conn);
+        $res=DB::showAllUsers($conn);
 
         $data=[
-            'res'=>'All Posts Gotten',
+            'res'=>'All Users Retrieved',
             'status'=>200,
             'data'=>$res,
             

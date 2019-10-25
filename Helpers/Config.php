@@ -12,7 +12,7 @@
         
         protected static $config=[
 
-            'DB_HOST'=>'localhost:3306',
+            'DB_HOST'=>'localhost',
             'DB_USERNAME'=>'root',
             'DB_PASSWORD'=>'secret',
             'DB_NAME'=>'wikipool',

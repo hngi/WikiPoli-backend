@@ -29,6 +29,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     if(!empty($comment)){
 
                         $data=[
+							
                             'res'=>'Comment Found',
                             'status'=>200,
                             'data'=>$comment
@@ -56,7 +57,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 					
 					echo json_encode($data);
 				}
-			}else{
+			}else{ 
 
 			$data=[
 				'res'=>'Post ID Not Sent',

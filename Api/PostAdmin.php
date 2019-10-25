@@ -12,7 +12,11 @@
      */
     class PostAdmin {
     	public $db;
-
+     
+     public function __construct(){
+     
+     $this->db = new Database();
+     }
     
 
         public function get($id = NULL)

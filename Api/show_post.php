@@ -42,7 +42,8 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         $data=[
             'res'=>'All Posts Gotten',
             'status'=>200,
-            'data'=>$res
+            'data'=>$res,
+            
         ];
     
         //http_response_code(404); 

@@ -27,21 +27,42 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				$id=$arr['data']->id;
 
 
-				if(DB::create_post($conn,$id,$post,$topic)==TRUE){
+				if(!(DB::user_blocked($conn,$id))){
 
-					$data=[
-						'res'=>'Post Successful',
-						'status'=>200
-					];
+					if(DB::create_post($conn,$id,$post,$topic)==TRUE){
+
+						$data=[
+							'res'=>'Post Successful',
+							'status'=>200
+						];
+							
 						
-					
-					echo json_encode($data);
+						echo json_encode($data);
+					}else{
+	
+						$data=[
+							'res'=>'Post Not Sent',
+							'status'=>404,
+							'err'=>mysqli_error($conn)
+						];
+							
+						
+						echo json_encode($data);
+					}
+
+
 				}else{
 
 					$data=[
+<<<<<<< HEAD
 						'res'=>'Post Not Sent',
             'status'=>404,
             'err'=>mysqli_error($conn)
+=======
+						'res'=>'Your account is currently blocked',
+						'status'=>200,
+						'err'=>mysqli_error($conn)
+>>>>>>> 8ae84dba1e2c9bda110df99562b88fa2c7456ceb
 					];
 						
 					

@@ -40,8 +40,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 					$data=[
 						'res'=>'Post Not Sent',
-                        'status'=>404,
-                        'err'=>mysqli_error($conn)
+            'status'=>404,
+            'err'=>mysqli_error($conn)
 					];
 						
 					

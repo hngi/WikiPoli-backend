@@ -135,6 +135,15 @@
                 }
         }
 
+        //EDIT POST
+		public static function edit_post($conn,$id,$post,$topic){
+			$sql = "UPDATE users SET post_topic = $topic, post = $post WHERE post_id = $id";
+            $result = mysqli_query($conn,$sql);
+            if($result == TRUE){
+	        return TRUE;
+			}
+		}
+
         public static function confirm_id($conn,$id){
 
             $checkpost="SELECT * FROM users WHERE user_id='$id'";

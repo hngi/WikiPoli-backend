@@ -26,43 +26,40 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				$topic=$_POST["topic"];
 				$id=$arr['data']->id;
 
+        if(!(DB::user_blocked($conn,$id))){
 
-				if(!(DB::user_blocked($conn,$id))){
+          if(DB::edit_post($conn,$id,$post,$topic)==TRUE){
 
-					if(DB::create_post($conn,$id,$post,$topic)==TRUE){
-
-						$data=[
-							'res'=>'Post Created Successfully',
-							'status'=>200
-						];
-							
-						
-						echo json_encode($data);
-					}else{
-	
-						$data=[
-							'res'=>'Post Not Sent',
-							'status'=>404,
-							'err'=>mysqli_error($conn)
-						];
-							
-						
-						echo json_encode($data);
-					}
-
-
-				}else{
+            $data=[
+              'res'=>'Post Updated Successfully',
+              'status'=>200
+            ];
+              
+            
+            echo json_encode($data);
+          }else{
 
 					$data=[
-						'res'=>'Your account is currently blocked',
-						'status'=>200,
-						'err'=>mysqli_error($conn)
+						'res'=>'Update failed',
+            'status'=>404,
+            'err'=>mysqli_error($conn)
 					];
 						
 					
 					echo json_encode($data);
 				}
 			}else{
+
+        $data=[
+          'res'=>'Your account is currently blocked',
+          'status'=>200,
+          'err'=>mysqli_error($conn)
+        ];
+          
+        
+        echo json_encode($data);
+      }
+    }else{
 
 			$data=[
 				'res'=>'Invalid Credentials',

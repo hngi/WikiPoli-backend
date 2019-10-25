@@ -225,6 +225,12 @@
                 return FALSE;
             }
         }
+
+        public static function edit_user($conn, $email, $udpate_sql){
+            $sql = "UPDATE users SET " .$udpate_sql . " WHERE email = '$email'";
+            $result = mysqli_query($conn, $sql);
+            //return $sql;
+        }
     }
 
 ?>

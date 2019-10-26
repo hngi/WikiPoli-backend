@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 					if(DB::create_post($conn,$id,$post,$topic)==TRUE){
 
 						$data=[
-							'res'=>'Post Successful',
+							'res'=>'Post Created Successful',
 							'status'=>200
 						];
 							

@@ -54,15 +54,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				}else{
 
 					$data=[
-<<<<<<< HEAD
-						'res'=>'Post Not Sent',
-            'status'=>404,
-            'err'=>mysqli_error($conn)
-=======
 						'res'=>'Your account is currently blocked',
 						'status'=>200,
 						'err'=>mysqli_error($conn)
->>>>>>> 8ae84dba1e2c9bda110df99562b88fa2c7456ceb
 					];
 						
 					

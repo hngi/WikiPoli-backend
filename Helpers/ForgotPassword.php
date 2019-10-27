@@ -94,7 +94,7 @@ public static function send_email($email)
   
  $sql = "SELECT * FROM users WHERE email = '$email'";
  $query = mysqli_query($db, $sql);
- while($info = mysql_fetch_array($query))
+ while($info = mysqli_fetch_array($query))
  {
   $name = $info['name'];
   $email = $info['email'];
@@ -103,7 +103,7 @@ public static function send_email($email)
  // Users new password
  $new_pass = self::update_password($email);
  $to = $email; 
- $from = 'WIKIPOLI'; 
+ $from = 'Wikipoli'; 
  $fromName = 'Wikipoli Team'; 
  $subject = "Your Wikipoli Account New Password"; 
  
